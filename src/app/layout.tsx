@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Kanit } from "next/font/google";
 import "./globals.css";
+import Link from 'next/link';
 import { ThirdwebProvider } from "thirdweb/react";
+import { ThemeProvider } from "./components/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const kanit = Kanit({
+  subsets: ["latin"],
+  weight: "300"
+});
 
 export const metadata: Metadata = {
-  title: "thirdweb SDK + Next starter",
+  title: "Emoji.Fun - Onchain Wishlist With Emojis",
   description:
-    "Starter template for using thirdweb SDK with Next.js App router",
+    "Create an onchain wishlist with emojis and get paid in Eth.",
 };
 
 export default function RootLayout({
@@ -18,9 +23,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThirdwebProvider>{children}</ThirdwebProvider>
+      <body className={kanit.className}>
+
+        <header className="flex justify-between items-center p-4 container mx-auto">
+          <div className="flex justify-start items-center">
+            <Link href="/">
+              <img src="/images/logo.png" alt="logo" />
+            </Link>
+            <Link href="/">
+              <h1 className="text-p1 font-bold ml-2 hidden sm:block"> Emoji.Fun </h1>
+            </Link>
+          </div>
+
+          <nav>
+            <Link href="/wishlist">
+              Wishlist
+            </Link>
+          </nav>
+        </header>
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ThirdwebProvider>{children}</ThirdwebProvider>
+        </ThemeProvider>
+
       </body>
     </html>
   );
 }
+
+
