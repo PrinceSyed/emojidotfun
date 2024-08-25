@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from 'next/link';
 import { ThirdwebProvider } from "thirdweb/react";
 import { ThemeProvider } from "./components/ThemeProvider";
+import HeaderNav from "./components/HeaderNav";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -25,22 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={kanit.className}>
 
-        <header className="flex justify-between items-center p-4 container mx-auto">
-          <div className="flex justify-start items-center">
-            <Link href="/">
-              <img src="/images/logo.png" alt="logo" />
-            </Link>
-            <Link href="/">
-              <h1 className="text-p1 font-bold ml-2 hidden sm:block"> Emoji.Fun </h1>
-            </Link>
-          </div>
 
-          <nav>
-            <Link href="/wishlist">
-              Wishlist
-            </Link>
-          </nav>
-        </header>
 
         <ThemeProvider
           attribute="class"
@@ -48,7 +34,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ThirdwebProvider>{children}</ThirdwebProvider>
+          <ThirdwebProvider>
+            <HeaderNav />
+            {children}
+          </ThirdwebProvider>
         </ThemeProvider>
 
       </body>

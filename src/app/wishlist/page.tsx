@@ -1,21 +1,15 @@
 "use client";
 
 import {
-    ConnectButton,
     TransactionButton,
-    useActiveAccount,
     useReadContract,
 } from "thirdweb/react";
 import { prepareContractCall, toWei } from "thirdweb";
 import { useState, useEffect } from "react";
 import { wishlistcontract } from "../utils/wishlistcontract";
-import { client } from "../client";
-import { createWallet } from "thirdweb/wallets";
-import { baseSepolia, defineChain } from "thirdweb/chains";
 import ProductList from "../components/ProductList";
 import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
 
-// Define types for the product data
 interface Product {
     id: string;
     creator: string;
@@ -27,15 +21,11 @@ interface Product {
 }
 
 const WishlistPage = () => {
-    const account = useActiveAccount();
-    const wallets = [createWallet("com.coinbase.wallet"), createWallet("io.metamask")];
-
     const [title, setTitle] = useState<string>("");
     const [price, setPrice] = useState<string>("");
     const [products, setProducts] = useState<Product[]>([]);
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
-    // Reading data from the contract
     const { data: productList, refetch: refetchProducts } = useReadContract({
         contract: wishlistcontract,
         method: "getAllProducts",
@@ -75,79 +65,70 @@ const WishlistPage = () => {
         <div className="flex w-full p-10 align-middle justify-center max-w-[500px] items-center mx-auto">
             <div className="w-full">
                 <h2>Create Product</h2>
-                <div>
-                    <ConnectButton
-                        client={client}
-                        wallets={wallets}
-                        chain={defineChain(baseSepolia)}
-                    />
-                </div>
 
-                {account && (
-                    <div className="mt-4 mb-2">
-                        <div className="flex flex-col">
-                            <label className="text-sm">Title</label>
-                            <div className="relative">
-                                <input
-                                    className="bg-n2 border border-n3 text-n7 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    type="text"
-                                    value={title}
-                                    onChange={handleTitleChange}
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    className="absolute right-2 top-2 text-lg"
-                                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                                >
-                                    😀
-                                </button>
-                            </div>
-                            {showEmojiPicker && (
-                                <div className="absolute z-10 mt-2">
+                <div className="mt-4 mb-2">
+                    <div className="flex flex-col">
+                        <label className="text-sm">Title</label>
+                        <div className="relative">
+                            <input
+                                className="bg-n2 border border-n3 text-n7 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                type="text"
+                                value={title}
+                                onChange={handleTitleChange}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="absolute right-2 top-2 text-lg"
+                                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                            >
+                                😀
+                            </button>
+                        </div>
+                        {showEmojiPicker && (
+                            <div className="absolute z-10 mt-2">
                                 <EmojiPicker
                                     onEmojiClick={handleEmojiClick}
                                     theme={Theme.DARK}  // Set the theme to dark
                                 />
                             </div>
-                            )}
+                        )}
 
-                            <label className="mt-4 text-sm">Price (ETH)</label>
-                            <input
-                                className="bg-n2 border-n3 text-n7 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4"
-                                type="text"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                required
-                            />
+                        <label className="mt-4 text-sm">Price (ETH)</label>
+                        <input
+                            className="bg-n2 border-n3 text-n7 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4"
+                            type="text"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            required
+                        />
 
-                            <TransactionButton className="mt-8"
-                                transaction={() =>
-                                    prepareContractCall({
-                                        contract: wishlistcontract,
-                                        method: "createProduct",
-                                        params: [title, BigInt(toWei(price))],
-                                    })
-                                }
-                                onTransactionConfirmed={() => {
-                                    alert("Product Created Successfully!");
-                                    setTitle("");
-                                    setPrice("");
-                                    refetchProducts();
-                                }}
-                            >
-                                Create Product
-                            </TransactionButton>
-                        </div>
+                        <TransactionButton className="mt-8"
+                            transaction={() =>
+                                prepareContractCall({
+                                    contract: wishlistcontract,
+                                    method: "createProduct",
+                                    params: [title, BigInt(toWei(price))],
+                                })
+                            }
+                            onTransactionConfirmed={() => {
+                                alert("Product Created Successfully!");
+                                setTitle("");
+                                setPrice("");
+                                refetchProducts();
+                            }}
+                        >
+                            Create Product
+                        </TransactionButton>
                     </div>
-                )}
+                </div>
 
-                <ProductList 
-                //@ts-ignore
-                    products={products} 
+                <ProductList
+                 //@ts-ignore
+                    products={products}
                      //@ts-ignore
-                    handleBuyProduct={handleBuyProduct} 
-                    refetchProducts={refetchProducts} 
+                    handleBuyProduct={handleBuyProduct}
+                    refetchProducts={refetchProducts}
                 />
             </div>
         </div>

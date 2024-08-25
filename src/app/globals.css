@@ -73,3 +73,30 @@
 [glow] .glowable-text {
   color: var(--glow-color);
 }
+
+/* Connect Button */
+.custom-connect-button button {
+  @apply bg-p1 text-n0 rounded-full p-4 font-bold min-w-[130px] h-[40px];
+  min-width: 130px !important;
+  height: 42px !important;
+}
+
+/* Circle Style */
+
+.custom-connect-button button > div:first-child {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Connected wallet address */
+.custom-connect-button span {
+  @apply text-n0 font-bold;
+}
+
+/* Connected wallet balance */
+.tw-connected-wallet__balance {
+  display: none !important;
+}
+.custom-connect-button button:hover {
+  @apply bg-n9;
+}
