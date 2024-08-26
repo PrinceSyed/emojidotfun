@@ -53,9 +53,9 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
     };
 
     return (
-        <div className="flex w-full p-10 align-middle justify-center max-w-[500px] items-center mx-auto">
+        <div className="container">
             <div className="w-full">
-                <h2>Products by {address}</h2>
+                <h2 className="text-center">Products by {address}</h2>
                 
 
                 <ProductList

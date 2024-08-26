@@ -100,3 +100,10 @@
 .custom-connect-button button:hover {
   @apply bg-n9;
 }
+
+.glow-capture [glow]  {
+  --tw-bg-opacity: 0.5; /* Reduce the opacity to 70% */
+  filter: blur(200px); /* Increase or decrease the blur radius for a more subtle or intense glow */
+  overflow: hidden; /* Ensures the glow effect doesn't overflow */
+  border-radius: inherit; /* Inherits the border-radius from the parent element */
+}

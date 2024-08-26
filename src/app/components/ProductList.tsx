@@ -1,5 +1,6 @@
 import React from "react";
 import { TransactionButton } from "thirdweb/react";
+import { Glow, GlowCapture } from "@codaworks/react-glow";
 
 interface Product {
     id: string;
@@ -28,43 +29,47 @@ const truncateAddress = (address: string) => {
 
 const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, refetchProducts, isLoading }) => {
     return (
-        <div className="mt-10">
-            <h3 className="font-semibold">Product List</h3>
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {isLoading ? (
                 <p>Loading...</p>
             ) : products.length === 0 ? (
                 <p>No products available</p>
             ) : (
                 products.map((product) => (
-                    <div key={product.id} className="flex flex-col w-full justify-center gap-4 bg-n0 rounded-md p-4 mb-4">
-                        <h4 className="text-lg font-bold">{product.title}</h4>
-                        <p>Price: {Number(product.price) / 10 ** 18} ETH</p>
-                        <p>Created At: {convertDate(product.createdAt)}</p>
-                        <p>
-                            Created By:{" "}
-                            <a
-                                href={`${window.location.origin}/wishlist/${product.creator}`}
-                                className="text-blue-500 underline"
-                            >
-                                {truncateAddress(product.creator)}
-                            </a>
-                        </p>
-                        <p>Status: {product.isSold ? "Sold" : "Available"}</p>
-                        {product.isSold && (
-                            <p>Buyer: {truncateAddress(product.buyer)}</p>
-                        )}
-                        {!product.isSold && (
-                            <TransactionButton
-                                transaction={() => handleBuyProduct(product.id, product.price)}
-                                onTransactionConfirmed={() => {
-                                    alert("Product Purchased Successfully!");
-                                    refetchProducts();
-                                }}
-                            >
-                                Buy Product
-                            </TransactionButton>
-                        )}
-                    </div>
+                    <GlowCapture>
+                        <Glow className="border border-n2 rounded-md">
+
+                            <div key={product.id} className="flex glow:bg-p2 flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
+                                <h4 className="text-lg font-bold">{product.title}</h4>
+                                <p>Price: {Number(product.price) / 10 ** 18} ETH</p>
+                                <p>Created At: {convertDate(product.createdAt)}</p>
+                                <p>
+                                    Created By:{" "}
+                                    <a
+                                        href={`${window.location.origin}/profile/${product.creator}`}
+                                        className="text-blue-500 underline"
+                                    >
+                                        {truncateAddress(product.creator)}
+                                    </a>
+                                </p>
+                                <p>Status: {product.isSold ? "Sold" : "Available"}</p>
+                                {product.isSold && (
+                                    <p>Buyer: {truncateAddress(product.buyer)}</p>
+                                )}
+                                {!product.isSold && (
+                                    <TransactionButton
+                                        transaction={() => handleBuyProduct(product.id, product.price)}
+                                        onTransactionConfirmed={() => {
+                                            alert("Product Purchased Successfully!");
+                                            refetchProducts();
+                                        }}
+                                    >
+                                        Buy Product
+                                    </TransactionButton>
+                                )}
+                            </div>
+                        </Glow>
+                    </GlowCapture>
                 ))
             )}
         </div>
