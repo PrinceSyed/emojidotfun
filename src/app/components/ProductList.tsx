@@ -57,7 +57,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                                     <p>Buyer: {truncateAddress(product.buyer)}</p>
                                 )}
                                 {!product.isSold && (
-                                    <TransactionButton
+                                    <TransactionButton className="rounded-full bg-p1 text-n0 font-medium"
                                         transaction={() => handleBuyProduct(product.id, product.price)}
                                         onTransactionConfirmed={() => {
                                             alert("Product Purchased Successfully!");

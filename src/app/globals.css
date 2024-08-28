@@ -101,6 +101,14 @@
   @apply bg-n9;
 }
 
+.button-primary {
+  @apply rounded-full font-bold bg-p1 text-n0 max-w-fit !important;
+  transition: background-color 0.3s !important;
+}
+
+.button-primary:hover {
+  @apply bg-n8 !important;
+}
 .glow-capture [glow]  {
   --tw-bg-opacity: 0.5; /* Reduce the opacity to 70% */
   filter: blur(200px); /* Increase or decrease the blur radius for a more subtle or intense glow */

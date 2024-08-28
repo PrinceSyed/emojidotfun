@@ -1,8 +1,8 @@
 "use client";
 import Link from 'next/link';
 import {
-    ConnectButton,
-    useActiveAccount
+  ConnectButton,
+  useActiveAccount
 } from "thirdweb/react";
 
 import { client } from "../client";
@@ -27,9 +27,14 @@ const HeaderNav = () => {
 
       <nav className="flex items-center">
         {account?.address && (
-          <Link href={`/profile/${account.address}`} className="mr-4">
-            Profile
-          </Link>
+          <>
+            <Link href="/create" className="mr-4">
+              Create
+            </Link>
+            <Link href={`/profile/${account.address}`} className="mr-4">
+              Profile
+            </Link>
+          </>
         )}
         <div className="ml-4 custom-connect-button">
           <ConnectButton
