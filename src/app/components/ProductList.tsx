@@ -39,33 +39,43 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                     <GlowCapture>
                         <Glow className="border border-n2 rounded-md">
 
-                            <div key={product.id} className="flex glow:bg-p2 flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
-                                <h4 className="text-lg font-bold">{product.title}</h4>
-                                <p>Price: {Number(product.price) / 10 ** 18} ETH</p>
-                                <p>Created At: {convertDate(product.createdAt)}</p>
-                                <p>
+                            <div key={product.id} className="flex text-center glow:bg-p2 flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
+                                <p className="text-sm text-n4">
                                     Created By:{" "}
                                     <a
                                         href={`${window.location.origin}/profile/${product.creator}`}
                                         className="text-blue-500 underline"
                                     >
-                                        {truncateAddress(product.creator)}
+                                        <span className="text-p1">  {truncateAddress(product.creator)} </span>
                                     </a>
                                 </p>
-                                <p>Status: {product.isSold ? "Sold" : "Available"}</p>
-                                {product.isSold && (
+                                <h4 className="text-4xl text-center font-bold">{product.title}</h4>
+                                <p className="text-lg font-medium text-n7">{Number(product.price) / 10 ** 18} ETH</p>
+                                {/* <p className="text-sm text-n4">Created At: {convertDate(product.createdAt)}</p> */}
+
+                                {/* <p>Status: {product.isSold ? "Sold" : "Available"}</p> */}
+                                {/* {product.isSold && (
                                     <p>Buyer: {truncateAddress(product.buyer)}</p>
-                                )}
-                                {!product.isSold && (
-                                    <TransactionButton className="rounded-full bg-p1 text-n0 font-medium"
-                                        transaction={() => handleBuyProduct(product.id, product.price)}
-                                        onTransactionConfirmed={() => {
-                                            alert("Product Purchased Successfully!");
-                                            refetchProducts();
-                                        }}
-                                    >
-                                        Buy Product
-                                    </TransactionButton>
+                                )} */}
+                                {!product.isSold ? (
+                                    <div className="flex justify-center">
+                                        <TransactionButton
+                                            className="mt-8 button-primary w-full"
+                                            transaction={() => handleBuyProduct(product.id, product.price)}
+                                            onTransactionConfirmed={() => {
+                                                alert("Product Purchased Successfully!");
+                                                refetchProducts();
+                                            }}
+                                        >
+                                            Pay
+                                        </TransactionButton>
+                                    </div>
+                                ) : (
+                                    <div className="flex justify-center">
+                                        <button className=" text-sm px-6 py-3.5 rounded-full button bg-n2 text-n4 font-medium cursor-not-allowed" disabled>
+                                        <p>Bought By: {truncateAddress(product.buyer)}</p>
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                         </Glow>
