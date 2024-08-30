@@ -110,8 +110,8 @@
   @apply bg-n8 !important;
 }
 .glow-capture [glow]  {
-  --tw-bg-opacity: 0.5; /* Reduce the opacity to 70% */
-  filter: blur(200px); /* Increase or decrease the blur radius for a more subtle or intense glow */
+  filter: blur(100px); /* Increase or decrease the blur radius for a more subtle or intense glow */
+  opacity: 0.4;
   overflow: hidden; /* Ensures the glow effect doesn't overflow */
   border-radius: inherit; /* Inherits the border-radius from the parent element */
 }

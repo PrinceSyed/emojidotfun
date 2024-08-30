@@ -1,13 +1,11 @@
 "use client";
-
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useReadContract } from "thirdweb/react";
+import { prepareContractCall } from "thirdweb";
 import { wishlistcontract } from "./utils/wishlistcontract";
 import ProductList from "./components/ProductList";
-import { Glow, GlowCapture } from "@codaworks/react-glow";
-import { Skeleton } from "@/components/ui/skeleton"
-
+import { Skeleton } from "@/components/ui/skeleton";
+import EmojiAnimation from "./components/EmojiAnimation";
 
 interface Product {
   id: string;
@@ -52,16 +50,28 @@ export default function Home() {
     }
   }, [productList]);
 
+  const handleBuyProduct = (productId: string, productPrice: string) => {
+    return prepareContractCall({
+      contract: wishlistcontract,
+      method: "buyProduct",
+      params: [BigInt(productId)],
+      value: BigInt(productPrice),
+    });
+  };
 
   return (
     <div className="min-h-screen bg-nb">
-      <h1 className="text-n7 font-sans text-3xl font-semibold mb-4 text-center">Onchain Wishlist For Your Bullshit</h1>
+      <h1 className="text-n7 font-sans text-3xl font-semibold mb-4 text-center">
+        Onchain Wishlist With Emojis <EmojiAnimation />
+      </h1>
       <div className="mt-10 container">
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {/* Display multiple skeleton loaders to simulate the product list */}
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="flex flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
+              <div
+                key={i}
+                className="flex flex-col w-full justify-center gap-4 rounded-md p-4 mb-4"
+              >
                 <Skeleton className="h-[125px] w-[250px] rounded-xl" />
                 <div className="space-y-2">
                   <Skeleton className="h-4 w-[250px]" />
@@ -74,6 +84,8 @@ export default function Home() {
           <ProductList
             //@ts-ignore
             products={products}
+            //@ts-ignore
+            handleBuyProduct={handleBuyProduct}
             refetchProducts={refetchProducts}
           />
         )}

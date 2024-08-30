@@ -18,10 +18,10 @@ const HeaderNav = () => {
     <header className="flex justify-between items-center p-4 container mx-auto">
       <div className="flex justify-start items-center">
         <Link href="/">
-          <img src="/images/logo.png" alt="logo" />
+          <img src="/images/logo.svg" alt="geenie logo" />
         </Link>
         <Link href="/">
-          <h1 className="text-p1 font-bold ml-2 hidden sm:block"> Emoji.Fun </h1>
+          <h1 className="text-p1 text-[1.3rem] font-bold ml-2 hidden sm:block"> Geenie.lol </h1>
         </Link>
       </div>
 

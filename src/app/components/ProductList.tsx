@@ -36,10 +36,10 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                 <p>No products available</p>
             ) : (
                 products.map((product) => (
-                    <GlowCapture>
+                    <GlowCapture key={product.id}> {/* Adding key prop here */}
                         <Glow className="border border-n2 rounded-md">
 
-                            <div key={product.id} className="flex text-center glow:bg-p2 flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
+                            <div key={product.id} className="flex text-center glow:bg-p4 flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
                                 <p className="text-sm text-n4">
                                     Created By:{" "}
                                     <a
