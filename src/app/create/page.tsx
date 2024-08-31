@@ -90,7 +90,7 @@ const CreateWish = () => {
                             <label className="mt-4 text-sm mb-1">Price (ETH)</label>
                             <input
                                 className="appearance-none bg-transparent border border-n3 text-n7 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-p1 block w-full p-2.5 mb-6"
-                                type="text"
+                                type="number"
                                 value={price}
                                 placeholder="Enter your asking price here"
                                 onChange={(e) => setPrice(e.target.value)}

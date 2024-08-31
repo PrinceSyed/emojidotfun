@@ -13,7 +13,7 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  title: "Emoji.Fun - Onchain Wishlist With Emojis",
+  title: "Geenie.lol - Onchain Wishlist With Emojis",
   description:
     "Create an onchain wishlist with emojis and get paid in Eth.",
 };

@@ -64,7 +64,7 @@ export default function Home() {
       <h1 className="text-n7 font-sans text-3xl font-semibold mb-4 text-center">
         Onchain Wishlist With Emojis <EmojiAnimation />
       </h1>
-      <div className="mt-10 container">
+      <div className="mt-10 container mb-6">
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (

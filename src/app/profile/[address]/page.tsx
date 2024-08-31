@@ -6,8 +6,9 @@ import { wishlistcontract } from "@/app/utils/wishlistcontract";
 import { useReadContract, useActiveAccount } from "thirdweb/react";
 import ProductList from "@/app/components/ProductList";
 import { Skeleton } from "@/components/ui/skeleton"; // Import the Skeleton component
-import { useToast } from "@/hooks/use-toast"; 
+import { useToast } from "@/hooks/use-toast";
 import { Copy } from 'lucide-react';
+import { motion } from "framer-motion"
 
 interface Product {
     id: string;
@@ -73,19 +74,27 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
     };
 
     return (
-        <div className="container">
+        <div className="container mb-6">
             <div className="w-full">
                 <div className="flex flex-col justify-center align-middle text-center">
                     <h2 className="text-n9 text-2xl font-medium mt-4"> Profile For: </h2>
                     <p className="mt-1"> <span className="text-sm font-medium p-4 text-n4"> {address} </span> </p>
                     <div className="flex justify-center">
-                    <button 
-                        onClick={handleCopyUrl} 
-                        className="flex text-p1 flex-row mt-1 px-2 max-w-[300px] text-center items-center hover:text-n9 transition-all"
-                    >
-                       <span className="mr-1">  <Copy size={16} /> </span>
-                        <span>  Copy Profile URL </span>
-                    </button>
+
+                        <motion.button
+                            onClick={handleCopyUrl}
+                            className="flex text-p1 flex-row mt-1 px-2 max-w-[300px] text-center items-center"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.9 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }} 
+                        >
+                            <span className="mr-1">
+                                <Copy size={16} />
+                            </span>
+                            <span>Copy Profile URL</span>
+                        </motion.button>
+
+
                     </div>
                 </div>
 
