@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ThirdwebProvider } from "thirdweb/react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import HeaderNav from "./components/HeaderNav";
+import { Toaster } from "@/components/ui/toaster";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -37,7 +38,9 @@ export default function RootLayout({
           <ThirdwebProvider>
             <HeaderNav />
             {children}
+            <Toaster />
           </ThirdwebProvider>
+
         </ThemeProvider>
 
       </body>
