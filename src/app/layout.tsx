@@ -16,6 +16,19 @@ export const metadata: Metadata = {
   title: "Geenie.lol - Onchain Wishlist With Emojis",
   description:
     "Create an onchain wishlist with emojis and get paid in Eth.",
+  openGraph: {
+    title: "Geenie.lol - Onchain Wishlist With Emojis",
+    description: "Create an onchain wishlist with emojis and get paid in Eth.",
+    url: "https://www.geenie.lol", 
+    images: [
+      {
+        url: "/images/geenie-op.jpg", 
+        width: 1200,
+        height: 630,
+        alt: "Geenie.lol - Onchain Wishlist With Emojis",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { Glow, GlowCapture } from "@codaworks/react-glow";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogClose,
+} from "@/components/ui/dialog"; 
 
 interface Product {
     id: string;
@@ -29,6 +39,7 @@ const truncateAddress = (address: string) => {
 
 const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, refetchProducts, isLoading }) => {
     const account = useActiveAccount(); // Get the current user's wallet address
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false); // State to control dialog visibility
 
     return (
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -60,7 +71,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                                                 className="mt-8 button-primary w-full"
                                                 transaction={() => handleBuyProduct(product.id, product.price)}
                                                 onTransactionConfirmed={() => {
-                                                    alert("Product Purchased Successfully!");
+                                                    setIsDialogOpen(true);
                                                     refetchProducts();
                                                 }}
                                             >
@@ -86,6 +97,23 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                     </GlowCapture>
                 ))
             )}
+
+            {/* Dialog Component */}
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className="bg-nb border border-n1">
+                    <DialogHeader>
+                        <DialogTitle className="text-lg font-medium">Purchase Complete!</DialogTitle>
+                        <DialogDescription className="text-n5">
+                            Thanks for being a genie and purchasing the wish!
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <DialogClose asChild>
+                            <button className="button-primary px-4 py-2 bg-p1 text-white rounded-lg"> Close </button>
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
