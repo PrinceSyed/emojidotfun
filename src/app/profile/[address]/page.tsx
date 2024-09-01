@@ -86,7 +86,7 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
                             className="flex text-p1 flex-row mt-1 px-2 max-w-[300px] text-center items-center"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.9 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 20 }} 
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
                             <span className="mr-1">
                                 <Copy size={16} />
@@ -105,10 +105,10 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
                                 key={i}
                                 className="flex flex-col w-full justify-center gap-4 rounded-md p-4 mb-4"
                             >
-                                <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                                <Skeleton className="h-[125px] w-[250px] rounded-xl bg-n1" />
                                 <div className="space-y-2">
-                                    <Skeleton className="h-4 w-[250px]" />
-                                    <Skeleton className="h-4 w-[200px]" />
+                                    <Skeleton className="h-4 w-[250px] bg-n1" />
+                                    <Skeleton className="h-4 w-[200px] bg-n1" />
                                 </div>
                             </div>
                         ))}

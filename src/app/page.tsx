@@ -72,10 +72,10 @@ export default function Home() {
                 key={i}
                 className="flex flex-col w-full justify-center gap-4 rounded-md p-4 mb-4"
               >
-                <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                <Skeleton className="h-[125px] w-[250px] rounded-xl bg-n1" />
                 <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
+                  <Skeleton className="h-4 w-[250px] bg-n1" />
+                  <Skeleton className="h-4 w-[200px] bg-n1" />
                 </div>
               </div>
             ))}

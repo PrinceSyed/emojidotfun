@@ -1,5 +1,5 @@
 import React from "react";
-import { TransactionButton } from "thirdweb/react";
+import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { Glow, GlowCapture } from "@codaworks/react-glow";
 
 interface Product {
@@ -28,6 +28,8 @@ const truncateAddress = (address: string) => {
 };
 
 const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, refetchProducts, isLoading }) => {
+    const account = useActiveAccount(); // Get the current user's wallet address
+
     return (
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {isLoading ? (
@@ -38,7 +40,6 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                 products.map((product) => (
                     <GlowCapture key={product.id}> {/* Adding key prop here */}
                         <Glow className="border border-n2 rounded-md">
-
                             <div key={product.id} className="flex text-center glow:bg-p4 flex-col w-full justify-center gap-4 rounded-md p-4 mb-4">
                                 <p className="text-sm text-n4">
                                     Created By:{" "}
@@ -51,29 +52,32 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                                 </p>
                                 <h4 className="text-4xl text-center font-bold">{product.title}</h4>
                                 <p className="text-lg font-medium text-n7">{Number(product.price) / 10 ** 18} ETH</p>
-                                {/* <p className="text-sm text-n4">Created At: {convertDate(product.createdAt)}</p> */}
 
-                                {/* <p>Status: {product.isSold ? "Sold" : "Available"}</p> */}
-                                {/* {product.isSold && (
-                                    <p>Buyer: {truncateAddress(product.buyer)}</p>
-                                )} */}
                                 {!product.isSold ? (
-                                    <div className="flex justify-center">
-                                        <TransactionButton
-                                            className="mt-8 button-primary w-full"
-                                            transaction={() => handleBuyProduct(product.id, product.price)}
-                                            onTransactionConfirmed={() => {
-                                                alert("Product Purchased Successfully!");
-                                                refetchProducts();
-                                            }}
-                                        >
-                                            Pay
-                                        </TransactionButton>
+                                    account?.address !== product.creator ? (
+                                        <div className="flex justify-center">
+                                            <TransactionButton
+                                                className="mt-8 button-primary w-full"
+                                                transaction={() => handleBuyProduct(product.id, product.price)}
+                                                onTransactionConfirmed={() => {
+                                                    alert("Product Purchased Successfully!");
+                                                    refetchProducts();
+                                                }}
+                                            >
+                                                Pay
+                                            </TransactionButton>
+                                        </div>
+                                    ) : (
+                                        <div className="flex justify-center">
+                                        <button className="text-sm px-6 py-3.5 rounded-full button bg-n1 text-n4 font-medium cursor-not-allowed" disabled>
+                                            <p> Creator </p>
+                                        </button>
                                     </div>
+                                    )
                                 ) : (
                                     <div className="flex justify-center">
-                                        <button className=" text-sm px-6 py-3.5 rounded-full button bg-n2 text-n4 font-medium cursor-not-allowed" disabled>
-                                        <p>Bought By: {truncateAddress(product.buyer)}</p>
+                                        <button className="text-sm px-6 py-3.5 rounded-full button bg-n2 text-n4 font-medium cursor-not-allowed" disabled>
+                                            <p>Bought By: {truncateAddress(product.buyer)}</p>
                                         </button>
                                     </div>
                                 )}
