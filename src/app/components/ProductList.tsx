@@ -10,7 +10,8 @@ import {
     DialogTitle,
     DialogTrigger,
     DialogClose,
-} from "@/components/ui/dialog"; 
+} from "@/components/ui/dialog";
+import { Frown } from "lucide-react";
 
 interface Product {
     id: string;
@@ -46,7 +47,16 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
             {isLoading ? (
                 <p>Loading...</p>
             ) : products.length === 0 ? (
-                <p>No products available</p>
+                <div className="col-span-4">
+                    <div className="flex flex-col max-w-[400px] border border-n1 bg-n0 rounded-md mx-auto justify-center p-4 text-center">
+                        <p className="flex justify-center items-center w-full text-n5 mb-2">
+                            <Frown />
+                        </p>
+                        <h3 className="text-lg font-medium"> No Wishes Available</h3>
+                        <p className="text-n5"> This account does not have any listed wishes. </p>
+                    </div>
+
+                </div>
             ) : (
                 products.map((product) => (
                     <GlowCapture key={product.id}> {/* Adding key prop here */}
@@ -80,10 +90,10 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                                         </div>
                                     ) : (
                                         <div className="flex justify-center">
-                                        <button className="text-sm px-6 py-3.5 rounded-full button bg-n1 text-n4 font-medium cursor-not-allowed" disabled>
-                                            <p> Creator </p>
-                                        </button>
-                                    </div>
+                                            <button className="text-sm px-6 py-3.5 rounded-full button bg-n1 text-n4 font-medium cursor-not-allowed" disabled>
+                                                <p> Creator </p>
+                                            </button>
+                                        </div>
                                     )
                                 ) : (
                                     <div className="flex justify-center">

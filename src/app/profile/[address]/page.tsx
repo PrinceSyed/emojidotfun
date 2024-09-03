@@ -8,7 +8,8 @@ import ProductList from "@/app/components/ProductList";
 import { Skeleton } from "@/components/ui/skeleton"; // Import the Skeleton component
 import { useToast } from "@/hooks/use-toast";
 import { Copy } from 'lucide-react';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface Product {
     id: string;
@@ -94,8 +95,19 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
                             <span>Copy Profile URL</span>
                         </motion.button>
 
-
                     </div>
+
+                    {/* Show the Create button if the logged-in user is viewing their own profile */}
+                    {account?.address === address && (
+                        <div className="flex justify-center mt-4 -mb-2">
+                            <Link href="/create">
+                                <button className="text-md font-bold bg-p1 text-n1 px-6 py-2 rounded-full hover:bg-n9 transition-colors">
+                                    Create Wish
+                                </button>
+                            </Link>
+                        </div>
+                    )}
+
                 </div>
 
                 {isLoading ? (
@@ -105,10 +117,10 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
                                 key={i}
                                 className="flex flex-col w-full justify-center gap-4 rounded-md p-4 mb-4"
                             >
-                                <Skeleton className="h-[125px] w-[250px] rounded-xl bg-n1" />
+                                <Skeleton className="h-[125px] w-full rounded-xl bg-n1" />
                                 <div className="space-y-2">
-                                    <Skeleton className="h-4 w-[250px] bg-n1" />
-                                    <Skeleton className="h-4 w-[200px] bg-n1" />
+                                    <Skeleton className="h-4 w-full bg-n1" />
+                                    <Skeleton className="h-4 w-full bg-n1" />
                                 </div>
                             </div>
                         ))}

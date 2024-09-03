@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-nb">
-      <h1 className="text-n7 font-sans text-3xl font-semibold mb-4 text-center">
+      <h1 className="text-n7 font-sans text-3xl font-semibold mb-4 text-center mt-4">
         Onchain Wishlist With Emojis <EmojiAnimation />
       </h1>
       <div className="mt-10 container mb-6">
@@ -72,10 +72,10 @@ export default function Home() {
                 key={i}
                 className="flex flex-col w-full justify-center gap-4 rounded-md p-4 mb-4"
               >
-                <Skeleton className="h-[125px] w-[250px] rounded-xl bg-n1" />
+                <Skeleton className="h-[125px] w-full rounded-xl bg-n1" />
                 <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px] bg-n1" />
-                  <Skeleton className="h-4 w-[200px] bg-n1" />
+                  <Skeleton className="h-4 w-full bg-n1" />
+                  <Skeleton className="h-4 w-full bg-n1" />
                 </div>
               </div>
             ))}
