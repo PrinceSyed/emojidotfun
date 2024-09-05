@@ -95,6 +95,9 @@ const CreateWish = () => {
         }
     }, [showEmojiPicker]);
 
+    // Check if both emoji and price fields are filled
+    const isFormValid = title !== "" && price !== "";
+
     return (
         <>
             <div className="container">
@@ -147,13 +150,17 @@ const CreateWish = () => {
 
                                 <div className="flex justify-center">
                                     <TransactionButton
-                                        className="mt-8 button-primary text-lg"
                                         transaction={handleCreateProduct}
                                         onTransactionConfirmed={() => {
                                             setIsDialogOpen(true);
                                             setTitle("");
                                             setPrice("");
                                         }}
+                                        onError={(error) => {
+                                            console.error("Transaction failed", error);
+                                        }}
+                                        disabled={!isFormValid}  // Disable button if form is not valid
+                                        className="mt-8 button-primary text-lg"
                                     >
                                         Create Wish
                                     </TransactionButton>
