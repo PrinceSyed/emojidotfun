@@ -122,7 +122,7 @@ export default function Home() {
                     Step 3 - Share your profile
                     </h4>
                     <p className="text-sm text-n-6 font-normal mt-1">
-                    Share your profile with for others by
+                    Share your profile with others by
                     copying your profile url. Your created wishes will be shown here.
                     </p>
                     <p className="mt-3 border border-n0 rounded-lg">

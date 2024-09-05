@@ -1,8 +1,8 @@
 "use client";
 
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
-import { prepareContractCall, toWei} from "thirdweb";
-import { useState } from "react";
+import { prepareContractCall, toWei } from "thirdweb";
+import { useState, useEffect } from "react";
 import { wishlistcontract } from "../utils/wishlistcontract";
 import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
 import {
@@ -12,13 +12,12 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
     DialogClose,
 } from "@/components/ui/dialog";
 import Link from "next/link";
 
 const CreateWish = () => {
-    const [title, setTitle] = useState<string>("");
+    const [title, setTitle] = useState<string>(""); 
     const [price, setPrice] = useState<string>("");
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
@@ -30,6 +29,7 @@ const CreateWish = () => {
         return (text.match(emojiRegex) || []).length;
     };
 
+    // Handle adding emojis via picker
     const handleEmojiClick = (emojiData: EmojiClickData) => {
         if (countEmojis(title) < 5) {
             setTitle((prev) => prev + emojiData.emoji);
@@ -37,17 +37,33 @@ const CreateWish = () => {
         setShowEmojiPicker(false);
     };
 
+    // Prevent typing in the input field, but allow backspace and delete
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key !== "Backspace" && e.key !== "Delete") {
+            e.preventDefault(); // Prevent any typing
+        }
+    };
+
+    // Handle changes in the input field (for deleting emojis)
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let value = e.target.value;
+        const value = e.target.value;
         const emojiCount = countEmojis(value);
 
-        if (emojiRegex.test(value) || value === "") {
-            if (emojiCount <= 5) {
-                setTitle(value);
-            } else {
-                const firstFiveEmojis = value.match(emojiRegex)?.slice(0, 5).join('') || '';
-                setTitle(firstFiveEmojis);
-            }
+        // Limit input to 5 emojis
+        if (emojiCount <= 5) {
+            setTitle(value);
+        } else {
+            // Restrict to first 5 emojis if exceeded
+            const firstFiveEmojis = value.match(emojiRegex)?.slice(0, 5).join('') || '';
+            setTitle(firstFiveEmojis);
+        }
+    };
+
+    // Prevent pasting non-emoji content
+    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+        const pastedText = e.clipboardData.getData("text");
+        if (!emojiRegex.test(pastedText)) {
+            e.preventDefault(); // Block non-emoji content from being pasted
         }
     };
 
@@ -69,6 +85,16 @@ const CreateWish = () => {
         });
     };
 
+    // Disable the Emoji Picker search bar auto-focus
+    useEffect(() => {
+        if (showEmojiPicker) {
+            const searchInput = document.querySelector('.EmojiPickerReact input');
+            if (searchInput) {
+                (searchInput as HTMLInputElement).blur();
+            }
+        }
+    }, [showEmojiPicker]);
+
     return (
         <>
             <div className="container">
@@ -86,10 +112,9 @@ const CreateWish = () => {
                                         type="text"
                                         value={title}
                                         placeholder="Enter up to 5 emojis here"
-                                        onChange={handleTitleChange}
-                                        onPaste={(e) => {
-                                            e.preventDefault();
-                                        }}
+                                        onKeyDown={handleKeyDown}  // Prevent typing
+                                        onChange={handleTitleChange}  // Allow backspace and delete
+                                        onPaste={handlePaste}  // Prevent pasting non-emoji content
                                         required
                                     />
                                     <button
