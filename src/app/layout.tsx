@@ -6,6 +6,7 @@ import { ThirdwebProvider } from "thirdweb/react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import HeaderNav from "./components/HeaderNav";
 import { Toaster } from "@/components/ui/toaster";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -38,9 +39,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      
+      <GoogleAnalytics />
+
       <body className={kanit.className}>
-
-
 
         <ThemeProvider
           attribute="class"
