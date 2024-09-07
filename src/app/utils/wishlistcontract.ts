@@ -1,13 +1,13 @@
 import { getContract } from "thirdweb";
 import { client } from "../client";
-import { baseSepolia, defineChain } from "thirdweb/chains";
+import { base, defineChain } from "thirdweb/chains";
 import { wishlistABI } from "./wishlistABI";
 
-const contractAddress = "0x6624D1fDe05c96cE7B63A030105Ff61E2f10E474";
+const contractAddress = "0x2b01F5205f9eC485aA99439CA6801E2e0DE1FAc4";
 
 export const wishlistcontract = getContract({
     client: client,
-    chain: defineChain(baseSepolia),
+    chain: defineChain(base),
     address: contractAddress,
     abi: wishlistABI,
 });

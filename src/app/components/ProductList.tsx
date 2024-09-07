@@ -23,6 +23,14 @@ interface ProductListProps {
   isLoading: boolean;
 }
 
+const convertDate = (timestamp: string) => {
+  const date = new Date(Number(timestamp) * 1000);
+  return date.toLocaleDateString('en-US', {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+  });
+};
 const truncateAddress = (address: string) => {
   return `${address.slice(0, 4)}....${address.slice(-4)}`;
 };
@@ -99,6 +107,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                     </button>
                   </div>
                 )}
+                <p className="text-xs text-n4"> Date Created: {convertDate(product.createdAt)}  </p>
               </div>
             </Glow>
           </GlowCapture>

@@ -8,7 +8,7 @@ import {
 
 import { client } from "../client";
 import { createWallet } from "thirdweb/wallets";
-import { baseSepolia, defineChain } from "thirdweb/chains";
+import { base, defineChain } from "thirdweb/chains";
 import { motion } from "framer-motion"
 
 const wallets = [createWallet("com.coinbase.wallet"), createWallet("io.metamask")];
@@ -53,7 +53,7 @@ const HeaderNav = () => {
           <ConnectButton
             client={client}
             wallets={wallets}
-            chain={defineChain(baseSepolia)}
+            chain={defineChain(base)}
           />
         </div>
       </nav>
