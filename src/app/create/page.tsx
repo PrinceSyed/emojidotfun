@@ -173,8 +173,8 @@ const CreateWish = () => {
 
             {/* Dialog Component */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="bg-nb border border-n1">
-                    <DialogHeader>
+                <DialogContent className="bg-nb border border-n1 text-left">
+                    <DialogHeader className="text-left">
                         <DialogTitle className="text-lg font-medium">Transaction Complete!</DialogTitle>
                         <DialogDescription className="text-n5">
                             Your wish was successfully created. Head over to {" "}
