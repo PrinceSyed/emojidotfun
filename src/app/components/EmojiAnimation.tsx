@@ -40,7 +40,7 @@ const EmojiAnimation = () => {
           ease: "easeInOut",
         }}
       >
-        🍆
+        🫵
       </motion.span>
       <motion.span
         className="mr-1"
@@ -53,7 +53,7 @@ const EmojiAnimation = () => {
           delay: 0.5, // Starts animating 0.5 seconds after the first emoji
         }}
       >
-        💦
+        😹 
       </motion.span>
       <motion.span
         variants={emojiVariants}
@@ -65,7 +65,7 @@ const EmojiAnimation = () => {
           delay: 1, // Starts animating 1 second after the first emoji
         }}
       >
-        🤭
+        🥹
       </motion.span>
     </motion.span>
   );
