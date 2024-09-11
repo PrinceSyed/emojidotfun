@@ -1,10 +1,9 @@
 "use client";
-
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { prepareContractCall, toWei } from "thirdweb";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { wishlistcontract } from "../utils/wishlistcontract";
-import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
+import CustomEmoji from "../components/CustomEmoji";
 import {
     Dialog,
     DialogContent,
@@ -19,53 +18,8 @@ import Link from "next/link";
 const CreateWish = () => {
     const [title, setTitle] = useState<string>(""); 
     const [price, setPrice] = useState<string>("");
-    const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const account = useActiveAccount();  // Access the user's account here
-
-    const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{1F200}-\u{1F2FF}]/gu;
-
-    const countEmojis = (text: string) => {
-        return (text.match(emojiRegex) || []).length;
-    };
-
-    // Handle adding emojis via picker
-    const handleEmojiClick = (emojiData: EmojiClickData) => {
-        if (countEmojis(title) < 5) {
-            setTitle((prev) => prev + emojiData.emoji);
-        }
-        setShowEmojiPicker(false);
-    };
-
-    // Prevent typing in the input field, but allow backspace and delete
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key !== "Backspace" && e.key !== "Delete") {
-            e.preventDefault(); // Prevent any typing
-        }
-    };
-
-    // Handle changes in the input field (for deleting emojis)
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        const emojiCount = countEmojis(value);
-
-        // Limit input to 5 emojis
-        if (emojiCount <= 5) {
-            setTitle(value);
-        } else {
-            // Restrict to first 5 emojis if exceeded
-            const firstFiveEmojis = value.match(emojiRegex)?.slice(0, 5).join('') || '';
-            setTitle(firstFiveEmojis);
-        }
-    };
-
-    // Prevent pasting non-emoji content
-    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-        const pastedText = e.clipboardData.getData("text");
-        if (!emojiRegex.test(pastedText)) {
-            e.preventDefault(); // Block non-emoji content from being pasted
-        }
-    };
 
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -85,16 +39,6 @@ const CreateWish = () => {
         });
     };
 
-    // Disable the Emoji Picker search bar auto-focus
-    useEffect(() => {
-        if (showEmojiPicker) {
-            const searchInput = document.querySelector('.EmojiPickerReact input');
-            if (searchInput) {
-                (searchInput as HTMLInputElement).blur();
-            }
-        }
-    }, [showEmojiPicker]);
-
     // Check if both emoji and price fields are filled
     const isFormValid = title !== "" && price !== "";
 
@@ -109,33 +53,9 @@ const CreateWish = () => {
                         <div className="mt-4 mb-2">
                             <div className="flex flex-col">
                                 <label className="text-lg mb-1">Emojis</label>
-                                <div className="relative">
-                                    <input
-                                        className="appearance-none bg-n0 border border-n0 text-n7 text-2xl rounded-lg focus:outline-none focus:ring-0 focus:border-n2 block w-full py-3 px-3 placeholder:text-base"
-                                        type="text"
-                                        value={title}
-                                        placeholder="Enter up to 5 emojis here"
-                                        onKeyDown={handleKeyDown}  // Prevent typing
-                                        onChange={handleTitleChange}  // Allow backspace and delete
-                                        onPaste={handlePaste}  // Prevent pasting non-emoji content
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className="absolute right-0 top-0 text-2xl bg-p1 p-3 rounded-lg hover:bg-n8 transition-colors duration-300"
-                                        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                                    >
-                                        😀
-                                    </button>
-                                </div>
-                                {showEmojiPicker && (
-                                    <div className="absolute z-10 mt-2">
-                                        <EmojiPicker
-                                            onEmojiClick={handleEmojiClick}
-                                            theme={Theme.DARK}
-                                        />
-                                    </div>
-                                )}
+
+                                {/* Use CustomEmoji Component */}
+                                <CustomEmoji title={title} setTitle={setTitle} />
 
                                 <label className="mt-4 text-lg mb-1">Price (ETH)</label>
                                 <input
@@ -180,7 +100,7 @@ const CreateWish = () => {
                             Your wish was successfully created. Head over to {" "}
                             {account?.address && (
                                 <Link href={`/profile/${account.address}`} className="text-p1 underline">
-                                   your profile
+                                    your profile
                                 </Link>
                             )}{" "}
                             to view it.

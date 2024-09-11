@@ -75,7 +75,11 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleBuyProduct, r
                     <span className="text-p1"> {truncateAddress(product.creator)} </span>
                   </a>
                 </p>
-                <h4 className="text-4xl text-center font-bold">{product.title}</h4>
+                <div
+                  className="text-4xl text-center font-bold flex justify-center emojiimg"
+                  dangerouslySetInnerHTML={{ __html: product.title }} // Render the title with emojis and custom emoji images
+                ></div>
+
                 <p className="text-lg font-medium text-n7">{Number(product.price) / 10 ** 18} ETH</p>
 
                 {!product.isSold ? (

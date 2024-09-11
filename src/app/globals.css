@@ -115,3 +115,9 @@
   overflow: hidden; /* Ensures the glow effect doesn't overflow */
   border-radius: inherit; /* Inherits the border-radius from the parent element */
 }
+
+.emojiimg img {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 10px !important;
+}
