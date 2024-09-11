@@ -70,7 +70,7 @@ const CustomEmoji: React.FC<CustomEmojiProps> = ({ title, setTitle }) => {
             if (countEmojis(title) < 5) {
                 // Make sure the image is inline and properly sized
                 //@ts-ignore
-                setTitle((prev) => prev + `<img src="${customEmoji.imgUrl}" alt="${customEmoji.names[0]}" style="width: 25px; height: 25px; display: inline; margin: 0px 10px 4px 0px;" />`);
+                setTitle((prev) => prev + `<img src="${customEmoji.imgUrl}" alt="${customEmoji.names[0]}" style="width: 25px; height: 25px; display: inline; margin: 0px 5px 4px 0px;" />`);
             }
         } else {
             if (countEmojis(title) < 5) {
