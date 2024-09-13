@@ -45,6 +45,11 @@ const CustomEmoji: React.FC<CustomEmojiProps> = ({ title, setTitle }) => {
             imgUrl: "/images/emojis/kek.png",
         },
         {
+            id: "rollcat",
+            names: ["rollingcat", "rollcat"],
+            imgUrl: "/images/emojis/rollingcat.gif",
+        },
+        {
             id: "mog",
             names: ["mog", "mogged"],
             imgUrl: "/images/emojis/mog.png",

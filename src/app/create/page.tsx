@@ -59,7 +59,7 @@ const CreateWish = () => {
 
                                 <label className="mt-4 text-lg mb-1">Price (ETH)</label>
                                 <input
-                                    className="appearance-none bg-n0 border border-n0 text-n7 text-lg rounded-lg focus:outline-none focus:ring-0 focus:border-n2 block w-full py-4 px-3 mb-6 placeholder:text-base"
+                                    className="appearance-none bg-n0 border border-n0 text-n7 text-lg rounded-lg focus:outline-none focus:ring-0 focus:border-n2 block w-full py-4 px-3 mb-2 placeholder:text-base"
                                     type="number"
                                     step="0.00000001"
                                     value={price}
@@ -67,6 +67,34 @@ const CreateWish = () => {
                                     onChange={handlePriceChange}
                                     required
                                 />
+
+                                {/* Add the new price option buttons */}
+                                <div className="flex space-x-2 mb-6 mt-1">
+                                <button
+                                         className="button-secondary text-sm px-4 py-2 bg-n1 text-n5 rounded-lg hover:text-n7 hover:bg-n2"
+                                        onClick={() => setPrice("0.00001")}
+                                    >
+                                        0.00001 ETH
+                                    </button>
+                                    <button
+                                         className="button-secondary text-sm px-4 py-2 bg-n1 text-n5 rounded-lg hover:text-n7 hover:bg-n2"
+                                        onClick={() => setPrice("0.0001")}
+                                    >
+                                        0.0001 ETH
+                                    </button>
+                                    <button
+                                        className="button-secondary text-sm px-4 py-2 bg-n1 text-n5 rounded-lg hover:text-n7 hover:bg-n2"
+                                        onClick={() => setPrice("0.001")}
+                                    >
+                                        0.001 ETH
+                                    </button>
+                                    <button
+                                       className="button-secondary text-sm px-4 py-2 bg-n1 text-n5 rounded-lg hover:text-n7 hover:bg-n2"
+                                        onClick={() => setPrice("0.01")}
+                                    >
+                                        0.01 ETH
+                                    </button>
+                                </div>
 
                                 <div className="flex justify-center">
                                     <TransactionButton
@@ -97,7 +125,7 @@ const CreateWish = () => {
                     <DialogHeader className="text-left">
                         <DialogTitle className="text-lg font-medium">Transaction Complete!</DialogTitle>
                         <DialogDescription className="text-n5">
-                            Your wish was successfully created. Head over to {" "}
+                            Your wish was successfully created. Head over to{" "}
                             {account?.address && (
                                 <Link href={`/profile/${account.address}`} className="text-p1 underline">
                                     your profile
@@ -108,7 +136,7 @@ const CreateWish = () => {
                     </DialogHeader>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <button className="button-primary px-4 py-2 bg-p1 text-white rounded-lg">Got It! </button>
+                            <button className="button-primary px-4 py-2 bg-p1 text-white rounded-lg">Got It!</button>
                         </DialogClose>
                     </DialogFooter>
                 </DialogContent>
