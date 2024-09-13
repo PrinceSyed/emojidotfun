@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Copy } from 'lucide-react';
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ethers } from "ethers"; // Import ethers.js
 
 interface Product {
     id: string;
@@ -25,7 +26,9 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
     const { address } = params;
     const [products, setProducts] = useState<Product[]>([]);
     const account = useActiveAccount();
-    const { toast } = useToast(); // Initialize the toast hook
+    const { toast } = useToast();
+
+    const [ensName, setEnsName] = useState<string | null>(null); // State to hold ENS name
 
     const { data: productList, isLoading, refetch: refetchProducts } = useReadContract({
         contract: wishlistcontract,
@@ -49,6 +52,21 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
             setProducts(sortedProducts);
         }
     }, [productList]);
+
+    // Function to resolve ENS name for the profile address
+    useEffect(() => {
+        const resolveENSName = async () => {
+            try {
+                const provider = ethers.getDefaultProvider(); // Use default provider or specify one
+                const name = await provider.lookupAddress(address);
+                setEnsName(name);
+            } catch (error) {
+                console.error('Error resolving ENS name:', error);
+            }
+        };
+
+        resolveENSName();
+    }, [address]);
 
     const handleBuyProduct = (productId: string, productPrice: string) => {
         return prepareContractCall({
@@ -79,7 +97,11 @@ const ProfilePage = ({ params }: { params: { address: string } }) => {
             <div className="w-full">
                 <div className="flex flex-col justify-center align-middle text-center">
                     <h2 className="text-n9 text-2xl font-medium mt-4"> Profile For: </h2>
-                    <p className="mt-1"> <span className="text-sm font-medium p-4 text-n4"> {address} </span> </p>
+                    <p className="mt-1">
+                        <span className="text-sm font-medium p-4 text-n4">
+                            {ensName || address} {/* Display ENS name or fallback to address */}
+                        </span>
+                    </p>
                     <div className="flex justify-center">
 
                         <motion.button
