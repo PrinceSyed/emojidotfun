@@ -50,6 +50,56 @@ const CustomEmoji: React.FC<CustomEmojiProps> = ({ title, setTitle }) => {
             imgUrl: "/images/emojis/rollingcat.gif",
         },
         {
+            id: "partyblob",
+            names: ["party", "partyblob"],
+            imgUrl: "/images/emojis/party_blob.gif",
+        },
+        {
+            id: "thumbsup",
+            names: ["thumbsup", "thumb"],
+            imgUrl: "/images/emojis/thumbs-up.gif",
+        },
+        {
+            id: "pinch",
+            names: ["pinched", "pinchedFinger"],
+            imgUrl: "/images/emojis/pinched-fingers.gif",
+        },
+        {
+            id: "ghost",
+            names: ["ghost", "ghosts"],
+            imgUrl: "/images/emojis/ghost.gif",
+        },
+        {
+            id: "fart",
+            names: ["fart", "fartin"],
+            imgUrl: "/images/emojis/fart.gif",
+        },
+        {
+            id: "clowning",
+            names: ["clown", "onchainclown"],
+            imgUrl: "/images/emojis/clown-face.gif",
+        },
+        {
+            id: "giggle",
+            names: ["giggle", "giggling"],
+            imgUrl: "/images/emojis/giggle.gif",
+        },
+        {
+            id: "lions",
+            names: ["lions", "detroit"],
+            imgUrl: "/images/emojis/lions.jpg",
+        },
+        {
+            id: "chiefs",
+            names: ["chiefs", "chiefs"],
+            imgUrl: "/images/emojis/chiefs.jpg",
+        },
+        {
+            id: "bengals",
+            names: ["bengals", "bengals"],
+            imgUrl: "/images/emojis/bengals.jpg",
+        },
+        {
             id: "mog",
             names: ["mog", "mogged"],
             imgUrl: "/images/emojis/mog.png",
@@ -58,6 +108,43 @@ const CustomEmoji: React.FC<CustomEmojiProps> = ({ title, setTitle }) => {
             id: "trump",
             names: ["trump", "trumpass"],
             imgUrl: "/images/emojis/trump.png",
+        },
+
+        {
+            id: "eth",
+            names: ["ethereum", "eth"],
+            imgUrl: "/images/emojis/eth.png",
+        },
+
+        {
+            id: "bitcoin",
+            names: ["bitcoin", "btc"],
+            imgUrl: "/images/emojis/bitcoin.png",
+        },
+
+        {
+            id: "sol",
+            names: ["solana", "sol"],
+            imgUrl: "/images/emojis/sol.png",
+        },
+
+        {
+            id: "usdc",
+            names: ["usdc", "usdc"],
+            imgUrl: "/images/emojis/usdc.png",
+        },
+
+
+        {
+            id: "wif",
+            names: ["wif", "wif"],
+            imgUrl: "/images/emojis/wif.png",
+        },
+
+        {
+            id: "pepe",
+            names: ["pepe", "pepe"],
+            imgUrl: "/images/emojis/pepe.png",
         },
 
         {
