@@ -77,7 +77,7 @@ const CreateWish = () => {
                                         0.00001 ETH
                                     </button>
                                     <button
-                                         className="button-secondary text-sm px-4 py-2 bg-n1 text-n5 rounded-lg hover:text-n7 hover:bg-n2"
+                                         className="button-secondary text-sm px-4 py-2 bg-n1 text-n5 rounded-lg hover:text-n7 hover:bg-n2 hidden sm:block"
                                         onClick={() => setPrice("0.0001")}
                                     >
                                         0.0001 ETH

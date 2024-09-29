@@ -217,7 +217,7 @@ const CustomEmoji: React.FC<CustomEmojiProps> = ({ title, setTitle }) => {
                 </button>
             </div>
             {showEmojiPicker && (
-                <div className="absolute z-10 mt-2">
+                <div className="absolute z-10 mt-2 sm:max-w-[400px]">
                     <EmojiPicker
                         onEmojiClick={handleEmojiClick}
                         theme={Theme.DARK}
